@@ -1,0 +1,12 @@
+{
+    "express":{
+        "port": 8080
+    },
+    
+    "db": {
+        "host": "localhost",
+        "user": "bisell",
+        "password": "test",
+        "database": "dev_bisell"
+    }
+}
