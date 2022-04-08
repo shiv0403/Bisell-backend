@@ -7,6 +7,7 @@
         "host": "localhost",
         "user": "bisell",
         "password": "test",
-        "database": "dev_bisell"
+        "database": "dev_bisell",
+        "port": 4306
     }
 }

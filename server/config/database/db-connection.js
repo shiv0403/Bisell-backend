@@ -1,3 +1,4 @@
+const logger = require("../../helper/logger");
 const sequelize = require("../sequelize");
 
 module.exports = function () {
@@ -5,10 +6,10 @@ module.exports = function () {
     sequelize.sequelize
       .authenticate()
       .then(() => {
-        console.log("Database connected successfully");
+        logger.info("Database connected successfully");
       })
       .catch((err) => {
-        console.log("Database connection failed", err);
+        logger.error("Database connection failed", err);
       });
   };
   connect();
