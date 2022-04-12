@@ -6,8 +6,8 @@
     "db": {
         "host": "localhost",
         "user": "bisell",
-        "password": "test",
+        "password": "Bisell@1234",
         "database": "dev_bisell",
-        "port": 4306
+        "port": 3306
     }
 }
