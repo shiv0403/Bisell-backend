@@ -1,7 +1,7 @@
 const db = require("../../../config/sequelize");
 
 exports.addUser = function (req, res) {
-  let { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   db.User.create({
     name,
