@@ -31,28 +31,26 @@ for i in range(0, len(university_data)):
                 elif j == 5:
                     city.append(data)
 
-data_len = min(len(rank), len(city), len(university), len(aboutUniversityLinks))
+data_len = min(len(rank), len(city), len(
+    university), len(aboutUniversityLinks))
 
 data = []
 
 for i in range(0, data_len):
     l = []
+    mydata = {"rank": rank[i], "university": university[i],
+              "city": city[i], "aboutUniversityLink": aboutUniversityLinks[i]}
     l.append(rank[i])
     l.append(university[i])
     l.append(city[i])
+
     l.append(aboutUniversityLinks[i])
 
+    # print(mydata)
+    # x = requests.post("http://localhost:8080/v1/college", json=mydata)
+    # break
     data.append(l)
 
 with open('collegeData.csv', 'w', newline="\n") as f:
     writer = csv.writer(f)
     writer.writerows(data)
-
-
-
-
-
-
-
-
-

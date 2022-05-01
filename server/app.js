@@ -1,6 +1,9 @@
 const fs = require("fs");
+const cookieParser = require("cookie-parser");
+const { checkUser } = require("./middlewares/authMiddleware");
 
 module.exports = function (app, router) {
+  app.use(cookieParser());
   require("./config/express")(app);
 
   fs.readdirSync(`${__dirname}/api`).forEach((version) => {
@@ -15,5 +18,6 @@ module.exports = function (app, router) {
     });
   });
 
+  app.use("*", checkUser);
   app.use("/v1", router);
 };
