@@ -7,7 +7,7 @@ module.exports = function (app) {
 
   app.use(
     cors({
-      origin: "*",
+      origin: "http://localhost:3000",
       methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
       allowedHeaders: ["Authorization", "Content-Type"],
       credentials: true,
