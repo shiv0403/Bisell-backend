@@ -25,3 +25,13 @@ exports.addCategory = async function (req, res) {
     return res.status(500).send({ err: error.message });
   }
 };
+
+exports.getCategories = async function (req, res) {
+  try {
+    await db.Category.findAll().then((result) => {
+      return res.status(200).send(result);
+    });
+  } catch (error) {
+    return res.status(500).send({ err: error.message });
+  }
+};

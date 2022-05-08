@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
           return this.setDataValue(moment());
         },
       },
-      udpatedAt: {
+      updatedAt: {
         type: DataTypes.DATE,
         get() {
           return this.setDataValue(moment());

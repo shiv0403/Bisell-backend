@@ -7,6 +7,7 @@ module.exports = function (sequelize, DataTypes) {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      image: DataTypes.STRING,
       age: DataTypes.INTEGER,
       enroll: DataTypes.STRING,
       about: DataTypes.STRING,
@@ -31,6 +32,14 @@ module.exports = function (sequelize, DataTypes) {
       freezeTableName: true,
     }
   );
+
+  User.associate = function (models) {
+    User.hasOne(models.College, {
+      sourceKey: "collegeId",
+      foreignKey: "id",
+      as: "college",
+    });
+  };
 
   return User;
 };

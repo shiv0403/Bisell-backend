@@ -10,3 +10,7 @@ exports.hashPassword = function (plainPassword) {
 exports.comparePasswords = function (plainPassword, hashPassword) {
   return bcrypt.compareSync(plainPassword, hashPassword);
 };
+
+exports.paginate = function (array, pageSize, pageNumber) {
+  return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+};

@@ -16,3 +16,12 @@ exports.addCollege = async function (req, res) {
     res.status(500).send({ err: error.message });
   }
 };
+
+exports.getColleges = async function (req, res) {
+  try {
+    let colleges = await db.College.findAll();
+    res.status(200).send(colleges);
+  } catch (error) {
+    res.status(500).send({ err: err.message });
+  }
+};

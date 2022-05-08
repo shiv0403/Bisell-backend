@@ -8,13 +8,13 @@ module.exports = function (sequelize, DataTypes) {
       userId: DataTypes.INTEGER,
       createdAt: {
         type: DataTypes.DATE,
-        get() {
+        set() {
           return this.setDataValue(moment());
         },
       },
       updatedAt: {
         type: DataTypes.DATE,
-        get() {
+        set() {
           return this.setDataValue(moment());
         },
       },
