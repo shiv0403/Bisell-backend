@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const db = require("../../../config/sequelize");
 const { generateUploadURL } = require("../../../helper/s3");
 
@@ -72,15 +72,13 @@ exports.getAds = async function (req, res) {
   }
 
   // order
-  let orderArr = [];
+  let orderArr = ["createdAt", "DESC"];
 
   if (param === "date") {
     orderArr = ["createdAt", order];
   } else if (param === "price") {
     orderArr = ["quote", order];
   }
-
-  console.log("orderArr->", orderArr);
 
   try {
     let ads = await db.Ad.findAll({
@@ -134,3 +132,79 @@ exports.getAd = async function (req, res) {
     res.status(500).send({ err: error.message });
   }
 };
+
+exports.getUserAds = async function (req, res) {
+  const { userId } = req.params;
+
+  try {
+    const userAds = await db.Ad.findAll({
+      where: {
+        userId,
+      },
+    });
+
+    res.status(200).send(userAds);
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.deleteAd = async function (req, res) {
+  const { adId } = req.params;
+
+  try {
+    const ad = await db.Ad.destroy({
+      where: {
+        id: adId,
+      },
+    });
+
+    res.status(200).send("Ad deleted");
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.viewAd = async function (req, res) {
+  let { adId } = req.body;
+
+  try {
+    const ad = await db.Ad.update(
+      {
+        views: Sequelize.literal("views + 1"),
+      },
+      {
+        where: {
+          id: parseInt(adId),
+        },
+      }
+    );
+
+    res.status(200).send("Ad viewed");
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.bookmarkAd = async function (req, res) {
+  const { adId } = req.body;
+
+  try {
+    const ad = await db.Ad.update(
+      {
+        bookmarks: Sequelize.literal("bookmarks + 1"),
+      },
+      {
+        where: {
+          id: adId,
+        },
+      }
+    );
+
+    res.status(200).send("Ad bookmarked");
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.removeBookmark = async function (req, res) {};
