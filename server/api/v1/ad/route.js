@@ -9,4 +9,6 @@ module.exports = function (router) {
   router.get("/ad-get/:adId", adController.getAd);
   router.get("/ads-get/:userId", adController.getUserAds);
   router.delete("/ad-delete/:adId", adController.deleteAd);
+  router.put("/ad-request", adController.requestDetails);
+  router.get("/ad-request-status", adController.requestStatus);
 };

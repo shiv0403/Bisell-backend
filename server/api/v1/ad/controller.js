@@ -1,5 +1,6 @@
 const { Op, Sequelize } = require("sequelize");
 const db = require("../../../config/sequelize");
+const { createNotification } = require("../../../helper/notification");
 const { generateUploadURL } = require("../../../helper/s3");
 
 exports.adImage = async function (req, res) {
@@ -202,6 +203,92 @@ exports.bookmarkAd = async function (req, res) {
     );
 
     res.status(200).send("Ad bookmarked");
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.requestDetails = async function (req, res) {
+  let { buyerId, sellerId, type, adId, status } = req.body;
+
+  try {
+    const adStatus = await db.AdStatus.findOne({
+      where: {
+        sellerId,
+        buyerId: userId,
+      },
+    });
+
+    const userData = await db.User.findOne({
+      where: {
+        id: buyerId,
+      },
+    });
+
+    if (adStatus) {
+      const updatedAtStatus = await db.AdStatus.update(
+        {
+          status, //pending
+        },
+        {
+          where: {
+            sellerId,
+            buyerId,
+          },
+        }
+      );
+
+      // create notification
+      let content = `<b>${userData.name}</b> has requested you to show your details.`;
+      const notification = createNotification(
+        sellerId,
+        null,
+        null,
+        content,
+        type
+      );
+
+      return res.status(200).send(updatedAtStatus);
+    } else {
+      const newAdStatus = await db.AdStatus.create({
+        sellerId,
+        buyerId,
+        adId,
+        status, //pending
+      });
+
+      // create notification
+      let content = `<b>${userData.name}</b> has requested you to show your details.`;
+      const notification = createNotification(
+        sellerId,
+        null,
+        null,
+        content,
+        type
+      );
+
+      return res.status(200).send(newAdStatus);
+    }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.requestStatus = async function (req, res) {
+  let { sellerId, buyerId } = req.query;
+  try {
+    const adStatus = await db.AdStatus.findOne({
+      where: {
+        sellerId,
+        buyerId,
+      },
+    });
+
+    if (adStatus) {
+      return res.status(200).send({ status: adStatus.status });
+    } else {
+      return res.status(200).send({ status: 0 });
+    }
   } catch (error) {
     res.status(500).send({ err: error.message });
   }
