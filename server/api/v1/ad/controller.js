@@ -209,13 +209,13 @@ exports.bookmarkAd = async function (req, res) {
 };
 
 exports.requestDetails = async function (req, res) {
-  let { buyerId, sellerId, type, adId, status } = req.body;
+  let { buyerId, sellerId, type, status } = req.body;
 
   try {
     const adStatus = await db.AdStatus.findOne({
       where: {
         sellerId,
-        buyerId: userId,
+        buyerId,
       },
     });
 
@@ -240,9 +240,14 @@ exports.requestDetails = async function (req, res) {
 
       // create notification
       let content = `<b>${userData.name}</b> has requested you to show your details.`;
+      let data = {
+        buyerId,
+        sellerId,
+      };
+
       const notification = createNotification(
         sellerId,
-        null,
+        JSON.stringify(data),
         null,
         content,
         type
@@ -253,15 +258,18 @@ exports.requestDetails = async function (req, res) {
       const newAdStatus = await db.AdStatus.create({
         sellerId,
         buyerId,
-        adId,
         status, //pending
       });
 
       // create notification
       let content = `<b>${userData.name}</b> has requested you to show your details.`;
+      let data = {
+        buyerId,
+        sellerId,
+      };
       const notification = createNotification(
         sellerId,
-        null,
+        JSON.stringify(data),
         null,
         content,
         type
@@ -289,6 +297,42 @@ exports.requestStatus = async function (req, res) {
     } else {
       return res.status(200).send({ status: 0 });
     }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.requestPermission = async function (req, res) {
+  const { buyerId, sellerId, status } = req.body;
+
+  try {
+    const adStatus = await db.AdStatus.update(
+      {
+        status,
+      },
+      {
+        where: {
+          buyerId,
+          sellerId,
+        },
+      }
+    );
+
+    const sellerDetails = await db.User.findOne({
+      where: {
+        id: sellerId,
+      },
+      attributes: ["name"],
+    });
+
+    // send notification to buyer
+    let content = `<b>${sellerDetails.name}</b> has ${
+      status === 0 ? "<b>declined</b>" : "<b>accepted</b>"
+    } your request to see their details`;
+    let type = "general";
+    const notification = createNotification(buyerId, null, null, content, type);
+
+    res.status(200).send(adStatus);
   } catch (error) {
     res.status(500).send({ err: error.message });
   }

@@ -4,7 +4,6 @@ module.exports = function (sequelize, DataTypes) {
   const AdStatus = sequelize.define(
     "AdStatus",
     {
-      adId: DataTypes.INTEGER,
       sellerId: DataTypes.INTEGER,
       buyerId: DataTypes.INTEGER,
       status: DataTypes.INTEGER,

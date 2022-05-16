@@ -11,4 +11,5 @@ module.exports = function (router) {
   router.delete("/ad-delete/:adId", adController.deleteAd);
   router.put("/ad-request", adController.requestDetails);
   router.get("/ad-request-status", adController.requestStatus);
+  router.put("/ad-request-permissions", adController.requestPermission);
 };
