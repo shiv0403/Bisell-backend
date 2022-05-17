@@ -1,29 +1,32 @@
 const moment = require("moment");
 
 module.exports = function (sequelize, DataTypes) {
-  let Category = sequelize.define(
-    "Category",
+  const Notification = sequelize.define(
+    "Notification",
     {
-      name: DataTypes.STRING,
       userId: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      data: DataTypes.STRING,
+      url: DataTypes.STRING,
+      content: DataTypes.STRING,
       createdAt: {
         type: DataTypes.DATE,
         set() {
-          return this.setDataValue(moment());
+          this.setDataValue(moment());
         },
       },
       updatedAt: {
         type: DataTypes.DATE,
         set() {
-          return this.setDataValue(moment());
+          this.setDataValue(moment());
         },
       },
     },
     {
-      tableName: "categories",
+      tableName: "notifications",
       freezeTableName: true,
     }
   );
 
-  return Category;
+  return Notification;
 };

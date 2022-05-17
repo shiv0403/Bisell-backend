@@ -74,3 +74,55 @@ exports.login = async function (req, res) {
     return res.status(500).send({ err: errors });
   }
 };
+
+exports.getUser = async function (req, res) {
+  const { userId } = req.params;
+  try {
+    const userData = await db.User.findOne({
+      include: [
+        {
+          model: db.College,
+          attributes: ["id", "college"],
+          as: "college",
+        },
+      ],
+      where: {
+        id: userId,
+      },
+    });
+
+    const colleges = await db.College.findAll({
+      attributes: ["id", "college"],
+    });
+
+    return res.status(200).send({ user: userData, colleges });
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.updateUser = async function (req, res) {
+  const { userId, name, email, image, about, phone, collegeId } = req.body;
+
+  try {
+    const updatedUser = await db.User.update(
+      {
+        name,
+        email,
+        image,
+        about,
+        phone,
+        collegeId,
+      },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    return res.status(200).send({ msg: messages.USER_UPDATED });
+  } catch (error) {
+    return res.status(500).send({ err: error.message });
+  }
+};

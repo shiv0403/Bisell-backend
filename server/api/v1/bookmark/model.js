@@ -1,13 +1,12 @@
 const moment = require("moment");
 
 module.exports = function (sequelize, DataTypes) {
-  let College = sequelize.define(
-    "College",
+  const Bookmark = sequelize.define(
+    "Bookmark",
     {
-      rank: DataTypes.INTEGER,
-      college: DataTypes.STRING,
-      city: DataTypes.STRING,
-      aboutCollegeLink: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+      adId: DataTypes.INTEGER,
+      status: DataTypes.INTEGER,
       createdAt: {
         type: DataTypes.DATE,
         set() {
@@ -22,10 +21,18 @@ module.exports = function (sequelize, DataTypes) {
       },
     },
     {
-      tableName: "colleges",
+      tableName: "bookmarks",
       freezeTableName: true,
     }
   );
 
-  return College;
+  Bookmark.associate = function (models) {
+    Bookmark.hasOne(models.Ad, {
+      foreignKey: "id",
+      sourceKey: "adId",
+      as: "ad",
+    });
+  };
+
+  return Bookmark;
 };
