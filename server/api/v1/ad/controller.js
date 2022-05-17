@@ -28,10 +28,15 @@ exports.postAd = async function (req, res) {
 };
 
 exports.getAds = async function (req, res) {
-  const { search, minBudget, maxBudget, collegeIds, param, order } = req.query;
+  let { search, minBudget, maxBudget, collegeIds, param, order, userId } =
+    req.query;
 
   let whereClause1 = {},
     whereClause2 = {};
+
+  if (userId === undefined) {
+    userId = null;
+  }
 
   // search filter
   if (search) {
@@ -95,6 +100,14 @@ exports.getAds = async function (req, res) {
           as: "user",
           where: whereClause2,
         },
+        {
+          model: db.Bookmark,
+          where: {
+            userId,
+          },
+          as: "bookmark",
+          required: false,
+        },
       ],
       where: whereClause1,
       order: [orderArr],
@@ -108,7 +121,11 @@ exports.getAds = async function (req, res) {
 };
 
 exports.getAd = async function (req, res) {
-  const { adId } = req.params;
+  let { adId, userId } = req.query;
+
+  if (userId === undefined) {
+    userId = null;
+  }
 
   try {
     const adData = await db.Ad.findOne({
@@ -122,6 +139,14 @@ exports.getAd = async function (req, res) {
             },
           ],
           as: "user",
+        },
+        {
+          model: db.Bookmark,
+          where: {
+            userId,
+          },
+          as: "bookmark",
+          required: false,
         },
       ],
       where: {

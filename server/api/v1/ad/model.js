@@ -37,6 +37,12 @@ module.exports = function (sequelize, DataTypes) {
       sourceKey: "userId",
       as: "user",
     });
+
+    Ad.hasOne(models.Bookmark, {
+      foreignKey: "adId",
+      sourceKey: "id",
+      as: "bookmark",
+    });
   };
 
   return Ad;

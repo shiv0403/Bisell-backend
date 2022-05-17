@@ -6,7 +6,7 @@ module.exports = function (router) {
   router.put("/ad-bookmark", adController.bookmarkAd);
   router.get("/ad-image", adController.adImage);
   router.get("/ads-get", adController.getAds);
-  router.get("/ad-get/:adId", adController.getAd);
+  router.get("/ad-get", adController.getAd);
   router.get("/ads-get/:userId", adController.getUserAds);
   router.delete("/ad-delete/:adId", adController.deleteAd);
   router.put("/ad-request", adController.requestDetails);

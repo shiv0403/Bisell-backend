@@ -6,8 +6,10 @@ exports.bookmark = async function (req, res) {
 
   try {
     let bookmark = await db.Bookmark.findOne({
-      adId,
-      userId,
+      where: {
+        adId,
+        userId,
+      },
     });
 
     if (bookmark) {
@@ -68,6 +70,26 @@ exports.getUserBookmarks = async function (req, res) {
         {
           model: db.Ad,
           as: "ad",
+          include: [
+            {
+              model: db.User,
+              include: [
+                {
+                  model: db.College,
+                  as: "college",
+                },
+              ],
+              as: "user",
+            },
+            {
+              model: db.Bookmark,
+              where: {
+                userId,
+              },
+              as: "bookmark",
+              required: false,
+            },
+          ],
         },
       ],
       where: {
