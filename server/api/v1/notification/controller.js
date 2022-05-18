@@ -8,6 +8,7 @@ exports.getNotifications = async function (req, res) {
       where: {
         userId,
       },
+      order: [["createdAt", "DESC"]],
     });
 
     res.status(200).send(notifications);
