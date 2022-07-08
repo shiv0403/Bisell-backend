@@ -18,6 +18,6 @@ module.exports = function (app, router) {
     });
   });
 
-  app.use("*", checkUser);
+  // app.use("*", checkUser);
   app.use("/v1", router);
 };

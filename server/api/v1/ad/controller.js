@@ -31,7 +31,6 @@ exports.getAds = async function (req, res) {
   let { search, minBudget, maxBudget, collegeIds, param, order, userId } =
     req.query;
 
-  console.log("userid --> ", userId);
   let whereClause1 = {},
     whereClause2 = {};
 
