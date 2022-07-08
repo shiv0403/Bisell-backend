@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const app = express();
@@ -11,6 +12,6 @@ const server = http.createServer(app);
 
 require(`${__dirname}/app`)(app, router);
 
-server.listen(port, "localhost", () => {
+server.listen(process.env.PORT || port, "localhost", () => {
   logger.info(`Server is running on port ${port}`);
 });
