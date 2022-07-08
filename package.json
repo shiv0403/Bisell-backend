@@ -15,7 +15,8 @@
     "winston": "^3.7.2"
   },
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "devStart": "nodemon server/server.js"
   },
   "name": "bisell-backend",
   "version": "1.0.0",

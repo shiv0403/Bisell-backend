@@ -12,6 +12,6 @@ const server = http.createServer(app);
 
 require(`${__dirname}/app`)(app, router);
 
-server.listen(process.env.PORT || port, "localhost", () => {
+server.listen(process.env.PORT, "localhost", () => {
   logger.info(`Server is running on port ${port}`);
 });
