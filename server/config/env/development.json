@@ -4,9 +4,9 @@
     },
     "db": {
         "database":  "dev_bisell",
-        "user": "bisell",
-        "password": "Shiv@123",
-        "host": "localhost",
+        "user": "root",
+        "password": "intruder",
+        "host": "bisell-db.clkz55ygprjb.us-west-2.rds.amazonaws.com",
         "port": 3306
     },
     "s3": {
