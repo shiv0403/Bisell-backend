@@ -7,7 +7,7 @@ module.exports = function (app) {
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "https://main.d2alebxh4xewmr.amplifyapp.com/",
       methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
       allowedHeaders: ["Authorization", "Content-Type"],
       credentials: true,
