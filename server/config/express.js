@@ -7,12 +7,16 @@ module.exports = function (app) {
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
-      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-      allowedHeaders: ["Authorization", "Content-Type"],
+      origin: [
+        "https://main.d2alebxh4xewmr.amplifyapp.com",
+        "http://localhost:3000",
+      ],
       credentials: true,
     })
   );
 
   dbConnection();
 };
+
+// methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+//       allowedHeaders: ["Authorization", "Content-Type"],

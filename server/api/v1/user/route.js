@@ -5,4 +5,5 @@ module.exports = function (router) {
   router.get("/get-user/:userId", user.getUser);
   router.put("/update-user", user.updateUser);
   router.post("/login", user.login);
+  router.get("/logout", user.logout);
 };

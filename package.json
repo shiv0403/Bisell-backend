@@ -4,7 +4,7 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.3",
@@ -15,7 +15,8 @@
     "winston": "^3.7.2"
   },
   "scripts": {
-    "start": "nodemon server/server.js"
+    "start": "node server/server.js",
+    "devStart": "nodemon server/server.js"
   },
   "name": "bisell-backend",
   "version": "1.0.0",
