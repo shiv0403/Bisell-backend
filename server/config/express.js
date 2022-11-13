@@ -7,7 +7,10 @@ module.exports = function (app) {
 
   app.use(
     cors({
-      origin: "https://main.d2alebxh4xewmr.amplifyapp.com",
+      origin: [
+        "https://main.d2alebxh4xewmr.amplifyapp.com",
+        "http://localhost:3000",
+      ],
       credentials: true,
     })
   );

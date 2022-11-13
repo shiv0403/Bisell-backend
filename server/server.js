@@ -12,6 +12,6 @@ const server = http.createServer(app);
 
 require(`${__dirname}/app`)(app, router);
 
-server.listen(process.env.PORT, "0.0.0.0", () => {
+server.listen(process.env.PORT || 8080, "0.0.0.0", () => {
   logger.info(`Server is running on port ${port}`);
 });

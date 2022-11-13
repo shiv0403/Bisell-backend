@@ -18,6 +18,6 @@
     },
     "jwt": {
         "JWT_SECRET": "randomsecret",
-        "maxAge": 30000
+        "maxAge": 86400000
     }
 }

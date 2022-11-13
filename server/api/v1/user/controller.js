@@ -75,6 +75,11 @@ exports.login = async function (req, res) {
   }
 };
 
+exports.logout = async function (req, res) {
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.status(200).send({ msg: "logged out" });
+};
+
 exports.getUser = async function (req, res) {
   const { userId } = req.params;
   try {
